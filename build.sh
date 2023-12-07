@@ -50,8 +50,8 @@ do
     tag="$(tag 'alpine' "$arch" "$version")"
     >&2 echo "===> Building $tag"
     export DOCKER_DEFAULT_PLATFORM="$platform"
-    docker image build --pull --platform "$platform" -t "$tag" \
-      --build-arg VERSION="$version" - < Dockerfile || \
+    docker build --pull --platform "$platform" -t "$tag" \
+      --build-arg VERSION="$version" . || \
       return 1
     docker push "$tag"
     if test "$latest" -lt "$(num_platforms)"
